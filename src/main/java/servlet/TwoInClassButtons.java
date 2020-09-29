@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 //David: (1) adds servlet mapping annotation
 import javax.servlet.annotation.WebServlet;
-@WebServlet( name = "twoButtons", urlPatterns = {"/TwoInClassButtons"} )
+@WebServlet( name = "TwoInClassButtons", urlPatterns = {"/TwoInClassButtons"} )
 
 // twoButtons class
 // CONSTRUCTOR: no constructor specified (default)
@@ -33,7 +33,7 @@ import javax.servlet.annotation.WebServlet;
 // private void PrintTail (PrintWriter out) --> Prints the HTML bottom
 //***********************************************************************
 
-public class TwoButtonsServlet extends HttpServlet
+public class TwoInClassButtons extends HttpServlet
 {
 
 // Location of servlet.
