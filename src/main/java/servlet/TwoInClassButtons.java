@@ -66,9 +66,9 @@ public void doPost (HttpServletRequest request, HttpServletResponse response)
    String lhsStr = request.getParameter("LHS");
    String rhsStr = request.getParameter("RHS");
    if ((lhsStr != null) && (lhsStr.length() > 0))
-      valA = new Float(lhsStr);
+      valA = new String(lhsStr);
    if ((rhsStr != null) && (rhsStr.length() > 0))
-      valB = new Float(rhsStr);
+      valB = new String(rhsStr);
 
    if (operation.equals(OpAdd1))
    {
