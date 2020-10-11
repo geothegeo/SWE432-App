@@ -34,8 +34,8 @@ function updateVarNum(event) {
 
 function showUserInputs(variables) {
   var lblInput = document.getElementById("lblInput");
-  var opTxt = [" OR, or, |, ||", " AND, and, &, &&", " XOR, xor"];
-  var opVal = [" OR", " AND", " XOR"];
+  var opTxt = ["OR, or, |, ||", "AND, and, &, &&", "XOR, xor"];
+  var opVal = ["||", "&&", "^"];
 
   for(i = 1; i <= parseInt(variables); i++) {
     if (i != 1) {
@@ -102,4 +102,18 @@ function updatePredicate(event) {
     predicate += document.getElementById("var" + i).value + "  ";
   }
   predicateTxt.innerHTML = predicate;
+}
+
+function validateForm() {
+  var j;
+  for (j = 1; j <= parseInt(variables); j++) {
+    var regex = /^\!?[a-zA-Z]{1,15}[0-9]{0,3}$/;
+    var ctrl =  document.getElementById("var" + j).value.trim();
+    var testing = regex.test(ctrl);
+    if (testing == false) {
+      alert("Invalid name for Variable" + j);
+      return false;
+    }
+  }
+  return true;
 }
