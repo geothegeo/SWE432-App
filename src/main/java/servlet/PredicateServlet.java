@@ -52,11 +52,11 @@ import javax.servlet.annotation.WebServlet;
   static String Style1 = "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css";
   static String Style2 = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js";
   static String Style3 = "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js";
-  static String Style = "http://mason.gmu.edu/~gtang2/other/main.css";
+
   static String BJS1 = "https://code.jquery.com/jquery-3.3.1.slim.min.js";
   static String BJS2 = "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js";
   static String BJS3 = "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js";
-  static String JS = "http://mason.gmu.edu/~gtang2/other/main.js";
+
   
   /** *****************************************************
     *  Overrides HttpServlet's doPost().
@@ -64,8 +64,7 @@ import javax.servlet.annotation.WebServlet;
     *  indicated by the submit button, and sends the results
     *  back to the client.
     ********************************************************* */
-  @Override
-  public void doPost (HttpServletRequest request, HttpServletResponse response)
+public void doPost (HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException
   {
     List<String> operators = new ArrayList<String>();
@@ -81,7 +80,7 @@ import javax.servlet.annotation.WebServlet;
       operators.add(request.getParameter("input" + i));
     }
     
-    String printTable = "<thead><tr>";
+    String printTable = "<table class=\"table\" ><thead><tr>";
     for(int i = 1; i <= inputAmnt; i++) {
       String varName = request.getParameter("var" + i);
       variables.add(varName);
@@ -115,7 +114,14 @@ import javax.servlet.annotation.WebServlet;
         for(int k = 0; k < values.length(); k++) { // iterate over "binary" to print current input
           printTable = printTable + "<td>" + values.charAt(k) + "</td>";
         }
-        printTable = printTable + "<td>" + se.eval(myExpression) + "</td></tr>";
+        String result = se.eval(myExpression).toString();
+        if(result.equals("false")) {
+          result = "0";
+        }
+        else if(result.equals("true")) {
+          result = "1";
+        }
+        printTable = printTable + "<td>" + result + "</td></tr>";
       }
       
     } catch (ScriptException e) {
@@ -124,10 +130,12 @@ import javax.servlet.annotation.WebServlet;
     }
     printTable += "</tbody></table>";
     
+    String predicate = "Displaying result for: " + request.getParameter("predicate");
+    
     response.setContentType("text/html");
     PrintWriter out = response.getWriter();
     PrintHead(out);
-    PrintBody(out, printTable);
+    PrintBody(out, predicate, printTable);
     PrintTail(out);
   }  // End doPost
   
@@ -160,11 +168,29 @@ import javax.servlet.annotation.WebServlet;
     out.println(" <link rel=\"stylesheet\" href=\"" + Style1 + "\">");
     out.println(" <link rel=\"stylesheet\" href=\"" + Style2 + "\">");
     out.println(" <link rel=\"stylesheet\" href=\"" + Style3 + "\">");
-    out.println(" <link rel=\"stylesheet\" href=\"" + Style + "\">");
+    
+    out.println(" <style>");
+    out.println(" body { margin-top: 2.5vh; }");
+    out.println(" form { margin-bottom: 10px; }");
+    out.println(" .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12,");
+    out.println(" .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12,");
+    out.println(" .col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 { padding: 0; }");
+    out.println(" .submitInfo { margin: 20px 10px 10px 0; }");
+    out.println(" #predicateTxt { text-decoration: underline; }");
+    out.println(" #lblInput label { text-align: center; margin: 12.5px 0; }");
+    out.println(" #lblInput { margin-bottom: 10px; }");
+    out.println(" #lblInput .form-control { margin: 0 0 0 10px; }");
+    out.println(" #lblInput select { padding: 5px; }");
+    out.println(" #lblInput input { padding: 15px; }");
+    out.println(" #lblInput select option { text-align: center; }");
+    out.println(" #result { padding: 20px; }");
+    out.println(" #result table td, th { width: 5%; }");
+    out.println(" </style>");
     
     out.println(" <script src=\"" + BJS1 + "\"></script>");
     out.println(" <script src=\"" + BJS2 + "\"></script>");
     out.println(" <script src=\"" + BJS3 + "\"></script>");
+    
     
     out.println(" <script>");
     out.println(" var variables = \"1\"; var i;");
@@ -234,9 +260,9 @@ import javax.servlet.annotation.WebServlet;
     out.println("<br />");
     out.println("<h5>This form accepts logic predicates. You must first choose the number of variables you want to use. Then, enter the variable name(s) into the textbox(es). You may " +
                 "include the NOT operator in your variable name in the following format: !variablename. Finally, select the appropriate operator(s) from the drop-down menu(s) " +
-                "and click \"Print Table\" when all fields are filled.</h5>");
+                "and click \"Show Table\" when all fields are filled.</h5>");
     out.println("<br />");
-    out.println("<h6>&emsp;Note: The operator(s) will be processed in its capitalized form, and you are limited to up to 10 variables.</h6>");
+    out.println("<h6>&emsp;Note: The operator(s) will be processed in its bitwise form, and you are limited to up to 10 variables.</h6>");
     out.println("<br />");
     
     out.println("<form id=\"inputForm\" class=\"form-inline\" method=\"post\"");
@@ -245,19 +271,19 @@ import javax.servlet.annotation.WebServlet;
     out.println("<div id=\"submitInfo\" class=\"row\" >");
     out.println("<div class=\"form-group\">");
     out.println("<label for=\"inputNum\" style=\"margin-right: 10px;\">Number of variables: </label>");
-    out.println("<input type=\"number\" class=\"form-control\" id=\"inputNum\" name=\"inputNum\" min=\"0\" max=\"10\" value=\"1\">");
+    out.println("<input type=\"number\" class=\"form-control\" id=\"inputNum\" name=\"inputNum\" min=\"1\" max=\"10\" value=\"1\">");
     out.println("</div>");
     out.println("</div>");
     
     out.println("<div class=\"row submitInfo\">");
     out.println("<div class=\"col-lg-3\"><p style=\"text-align: center;\">Your Predicate:</p></div>");
-    out.println("<div class=\"col-lg-8\"><p id=\"predicateTxt\"></p></div>");
+    out.println("<div class=\"col-lg-8\"><p id=\"predicateTxt\"></p><input type=\"hidden\" id=\"predicate\" name=\"predicate\"></div>");
     out.println("<div class=\"col-lg-1\"><input type=\"submit\" class=\"btn btn-primary\" id=\"submitForm\" value=\"Show Table\"/></div>");
     out.println("</div>");
     
     out.println("<div class=\"row\">");
     out.println("<div class=\"col-lg-3\"><div id=\"lblInput\"></div></div>");
-    out.println("<div class=\"col-lg-9\"><div id=\"result\">" + printTable + "</div></div>");
+    out.println("<div class=\"col-lg-9\"><p>" + predicate + "</p><div id=\"result\">" + printTable + "</div></div>");
     out.println("</div>");
     out.println("</div>");
     out.println("</form>");
