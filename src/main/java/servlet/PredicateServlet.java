@@ -252,7 +252,7 @@ public void doPost (HttpServletRequest request, HttpServletResponse response)
     *  Prints the <BODY> of the HTML page with the form data
     *  values from the parameters.
     ********************************************************* */
-  private void PrintBody (PrintWriter out, String printTable)
+  private void PrintBody (PrintWriter out, String predicate, String printTable)
   {
     out.println("<body>");
     out.println("<div id=\"predicateForm\" class=\"container-fluid w-75 p-5 mt-10\">");
@@ -311,7 +311,7 @@ public void doPost (HttpServletRequest request, HttpServletResponse response)
     ********************************************************* */
   private void PrintBody (PrintWriter out)
   {
-    PrintBody(out, "");
+    PrintBody(out, "", "");
   }
   
   /** *****************************************************
