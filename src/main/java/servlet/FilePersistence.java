@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.annotation.WebServlet;
 
 @WebServlet(name = "FilePersistence", urlPatterns = {"/file"})
-public class persistenceFile extends HttpServlet{
+public class FilePersistence extends HttpServlet{
   static enum Data {AGE, NAME, GENDER};
   static String RESOURCE_FILE = "entries.txt";
   static final String VALUE_SEPARATOR = ";";
