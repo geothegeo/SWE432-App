@@ -287,7 +287,7 @@ public class XMLPersistenceServletInClass extends HttpServlet{
        entryManager.setFilePath(RESOURCE_FILE);
        List<Entry> newEntries= null;
        try{
-         newEntries=entryManager.save(name, age);
+         newEntries=entryManager.save(name, age, gender);
        }catch(FileNotFoundException e){
          e.printStackTrace();
           error+= "<li>Could not save entry.</li>";
