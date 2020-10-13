@@ -108,7 +108,7 @@ public class XMLPersistenceServletInClass extends HttpServlet{
       eventWriter.add(LINE_END);
 
       for(Entry entry: entries){
-        addEntry(eventWriter, entry.name, entry.age);
+        addEntry(eventWriter, entry.name, entry.age, entry.gender);
       }
 
       eventWriter.add(ENTRIES_END);
