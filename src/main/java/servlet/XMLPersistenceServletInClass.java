@@ -1,6 +1,7 @@
 package servlet;
 // Written by David Gonzalez, April 2020
 // Modified by Jeff Offutt
+// Modified by George Tang
 // Built to deploy in github with Heroku
 import java.util.List;
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class XMLPersistenceServletInClass extends HttpServlet{
 
   static String RESOURCE_FILE = "entries.xml";
 
-  static String Domain  = "";
+  static String Domain  = "https://swe432-webapp.herokuapp.com/";
   static String Path    = "/";
   static String Servlet = "xml";
 
