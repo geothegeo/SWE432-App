@@ -20,6 +20,7 @@ public void doGet (HttpServletRequest request, HttpServletResponse response)
 
    String name   = request.getParameter("attrib_name");
    String value  = request.getParameter("attrib_value");
+   String name2  = request.getParameter("attrib_name2");
    String color  = request.getParameter("attrib_color");
    String remove = request.getParameter("attrib_remove");
 
@@ -29,11 +30,14 @@ public void doGet (HttpServletRequest request, HttpServletResponse response)
    }
    else
    {
-      if ((name != null && name.length() > 0) && (value != null && value.length() > 0) && (color != null && color.length() > 0))
+      if ((name != null && name.length() > 0) && (value != null && value.length() > 0))
       {
-         session.setAttribute(name, value, color);
+         session.setAttribute(name, value);
       }
-
+      if ((name2 != null && name2.length() > 0) && (color != null && color.length() > 0))
+      {
+         session.setAttribute(name2, color);
+      }
    }
 
    response.setContentType("text/html");
@@ -59,7 +63,10 @@ public void doGet (HttpServletRequest request, HttpServletResponse response)
    out.println(" <input type=\"text\" size=\"10\" name=\"attrib_name\">");
 
    out.println(" Value: ");
-   out.println(" <input type=\"text\" size=\"10\" name=\"attrib_value\">");
+   out.println(" <input type=\"text\" size=\"10\" name=\"attrib_value\"><br>");
+
+   out.println(" Name: ");
+   out.println(" <input type=\"text\" size=\"10\" name=\"attrib_name2\">");
 
    out.println(" Color: ");
    out.println(" <input type=\"text\" size=\"10\" name=\"attrib_color\">");
@@ -75,14 +82,11 @@ public void doGet (HttpServletRequest request, HttpServletResponse response)
    {
       String att_name  = (String) e.nextElement();
       String att_value = (String) session.getAttribute(att_name);
-      String att_color = (String) session.getAttribute(att_name);
 
       out.print  ("<br><b>Name:</b> ");
       out.println(att_name);
-      out.print  ("<br><b>Value:</b> ");
+      out.print  ("<br><b>Value/Color:</b> ");
       out.println(att_value);
-      out.print  ("<br><b>Color:</b> ");
-      out.println(att_color);
    } //end while
 
    out.println("</body>");
