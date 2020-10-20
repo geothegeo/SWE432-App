@@ -16,30 +16,12 @@ public void doGet (HttpServletRequest request, HttpServletResponse response)
        throws ServletException, IOException
 {
    // Get session object
-   HttpSession session = request.getSession();
-
    String name   = request.getParameter("attrib_name");
    String value  = request.getParameter("attrib_value");
    String name2  = request.getParameter("attrib_name2");
    String color  = request.getParameter("attrib_color");
    String remove = request.getParameter("attrib_remove");
    String action = request.getParameter("action");
-
-   if (remove != null && remove.equals("on"))
-   {
-      session.removeAttribute(name);
-   }
-   else
-   {
-      if ((name != null && name.length() > 0) && (value != null && value.length() > 0))
-      {
-         session.setAttribute(name, value);
-      }
-      if ((name2 != null && name2.length() > 0) && (color != null && color.length() > 0))
-      {
-         session.setAttribute(name2, color);
-      }
-   }
 
    if (action != null && action.equals("invalidate"))
    {  // Called from the invalidate button, kill the session.
@@ -69,6 +51,26 @@ public void doGet (HttpServletRequest request, HttpServletResponse response)
       out.println("</html>");
       out.close();
    } else {
+
+      // Get session object
+      HttpSession session = request.getSession();
+
+      if (remove != null && remove.equals("on"))
+      {
+         session.removeAttribute(name);
+      }
+      else
+      {
+         if ((name != null && name.length() > 0) && (value != null && value.length() > 0))
+         {
+            session.setAttribute(name, value);
+         }
+         if ((name2 != null && name2.length() > 0) && (color != null && color.length() > 0))
+         {
+            session.setAttribute(name2, color);
+         }
+      }
+
       response.setContentType("text/html");
       PrintWriter out = response.getWriter();
 
