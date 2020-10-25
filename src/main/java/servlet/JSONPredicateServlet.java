@@ -188,7 +188,7 @@ public class JSONPredicateServlet extends HttpServlet{
      response.setContentType("text/html");
      PrintWriter out = response.getWriter();
      printHead(out);
-     private void printResponseBody(out, "doGet");
+     printResponseBody(out, "doGet");
      printTail(out);
   }
 
