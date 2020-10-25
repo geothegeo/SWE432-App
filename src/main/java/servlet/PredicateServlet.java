@@ -48,6 +48,8 @@ import javax.servlet.annotation.WebServlet;
   static String Path    = "";
   static String Servlet = "PredicateServlet";
   
+  static String JSONServelet = "jsonServlet";
+  
 // Other strings.
   static String Style1 = "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css";
   static String Style2 = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js";
@@ -163,7 +165,7 @@ public void doPost (HttpServletRequest request, HttpServletResponse response)
     out.println("");
     
     out.println("<head>");
-    out.println("<titleSWE Assignment 5</title>");
+    out.println("<titleSWE Assignment 7</title>");
     out.println(" <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
     out.println(" <link rel=\"stylesheet\" href=\"" + Style1 + "\">");
     out.println(" <link rel=\"stylesheet\" href=\"" + Style2 + "\">");
@@ -256,11 +258,11 @@ public void doPost (HttpServletRequest request, HttpServletResponse response)
   {
     out.println("<body>");
     out.println("<div id=\"predicateForm\" class=\"container-fluid w-75 p-5 mt-10\">");
-    out.println("<h1>SWE 432 - Assignment 5</h1>");
+    out.println("<h1>SWE 432 - Assignment 7</h1>");
     out.println("<br />");
     out.println("<h5>This form accepts logic predicates. You must first choose the number of variables you want to use. Then, enter the variable name(s) into the textbox(es). You may " +
                 "include the NOT operator in your variable name in the following format: !variablename. Finally, select the appropriate operator(s) from the drop-down menu(s) " +
-                "and click \"Show Table\" when all fields are filled.</h5>");
+                "and click \"Show Table\" when all fields are filled. Click \"Save\" to store the predicate for later use.</h5>");
     out.println("<br />");
     out.println("<h6>&emsp;Note: The operator(s) will be processed in its bitwise form, and you are limited to up to 10 variables.</h6>");
     out.println("<br />");
@@ -274,11 +276,12 @@ public void doPost (HttpServletRequest request, HttpServletResponse response)
     out.println("<input type=\"number\" class=\"form-control\" id=\"inputNum\" name=\"inputNum\" min=\"1\" max=\"10\" value=\"1\">");
     out.println("</div>");
     out.println("</div>");
-    
+     
     out.println("<div class=\"row submitInfo\">");
     out.println("<div class=\"col-lg-3\"><p style=\"text-align: center;\">Your Predicate:</p></div>");
-    out.println("<div class=\"col-lg-8\"><p id=\"predicateTxt\"></p><input type=\"hidden\" id=\"predicate\" name=\"predicate\"></div>");
-    out.println("<div class=\"col-lg-1\"><input type=\"submit\" class=\"btn btn-primary\" id=\"submitForm\" value=\"Show Table\"/></div>");
+    out.println("<div class=\"col-lg-7\"><p id=\"predicateTxt\"></p><input type=\"hidden\" id=\"predicate\" name=\"predicate\"></div>");
+    out.println("<div class=\"col-lg-2\"><input type=\"submit\" class=\"btn btn-primary\" id=\"savePredicate\" value=\"Save\" formaction=\"/" + JSONServelet + "\">");
+    out.println("<input type=\"submit\" class=\"btn btn-primary\" id=\"submitForm\" value=\"Show Table\"/></div>");
     out.println("</div>");
     
     out.println("<div class=\"row\">");
@@ -324,3 +327,8 @@ public void doPost (HttpServletRequest request, HttpServletResponse response)
   } // End PrintTail
   
 }  // End PredicateServlet
+
+
+
+
+
