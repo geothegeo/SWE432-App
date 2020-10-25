@@ -48,7 +48,7 @@ import javax.servlet.annotation.WebServlet;
   static String Path    = "";
   static String Servlet = "PredicateServlet";
   
-  static String JSONServelet = "jsonServlet";
+  static String JSONServlet = "jsonServlet";
   
 // Other strings.
   static String Style1 = "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css";
@@ -280,7 +280,7 @@ public void doPost (HttpServletRequest request, HttpServletResponse response)
     out.println("<div class=\"row submitInfo\">");
     out.println("<div class=\"col-lg-3\"><p style=\"text-align: center;\">Your Predicate:</p></div>");
     out.println("<div class=\"col-lg-7\"><p id=\"predicateTxt\"></p><input type=\"hidden\" id=\"predicate\" name=\"predicate\"></div>");
-    out.println("<div class=\"col-lg-2\"><input type=\"submit\" class=\"btn btn-primary\" id=\"savePredicate\" value=\"Save\" formaction=\"/" + JSONServelet + "\">");
+    out.println("<div class=\"col-lg-2\"><input type=\"submit\" class=\"btn btn-primary\" id=\"savePredicate\" value=\"Save\" formaction=\"/" + JSONServlet + "\">");
     out.println("<input type=\"submit\" class=\"btn btn-primary\" id=\"submitForm\" value=\"Show Table\"/></div>");
     out.println("</div>");
     
@@ -327,8 +327,4 @@ public void doPost (HttpServletRequest request, HttpServletResponse response)
   } // End PrintTail
   
 }  // End PredicateServlet
-
-
-
-
 

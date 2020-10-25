@@ -218,49 +218,49 @@ public class JSONPredicateServlet extends HttpServlet{
   /** *****************************************************
    *  Prints the <BODY> of the HTML page
   ********************************************************* */
-  private void printBody (
-    PrintWriter out, String name, String age, String error){
-    out.println("<body onLoad=\"setFocus()\">");
-    out.println("<p>");
-    out.println(
-      "A simple example that demonstrates how to persist JSON data to a file"
-      );
-    out.println("</p>");
+//   private void printBody (
+//     PrintWriter out, String name, String age, String error){
+//     out.println("<body onLoad=\"setFocus()\">");
+//     out.println("<p>");
+//     out.println(
+//       "A simple example that demonstrates how to persist JSON data to a file"
+//       );
+//     out.println("</p>");
 
-    if(error != null && error.length() > 0){
-      out.println(
-      "<p style=\"color:red;\">Please correct the following and resubmit.</p>"
-      );
-      out.println("<ol>");
-      out.println(error);
-      out.println("</ol>");
-    }
+//     if(error != null && error.length() > 0){
+//       out.println(
+//       "<p style=\"color:red;\">Please correct the following and resubmit.</p>"
+//       );
+//       out.println("<ol>");
+//       out.println(error);
+//       out.println("</ol>");
+//     }
 
-    out.print  ("<form name=\"persist2file\" method=\"post\"");
-    out.println(" action=\""+Domain+Path+Servlet+"\">");
-    out.println("");
-    out.println(" <table>");
-    out.println("  <tr>");
-    out.println("   <td>Name:</td>");
-    out.println("   <td><input type=\"text\" name=\""+Data.NAME.name()
-      +"\" value=\""+name+"\" size=30 required></td>");
-    out.println("  </tr>");
-    out.println("  <tr>");
-    out.println("   <td>Age:</td>");
-    out.println("   <td><input type=\"text\"  name=\""+Data.AGE.name()
-      +"\" oninput=\"this.value=this.value.replace(/[^0-9]/g,'');\" value=\""
-      +age+"\" size=3 required></td>");
-    out.println("  </tr>");
-    out.println(" </table>");
-    out.println(" <br>");
-    out.println(" <br>");
-    out.println(" <input type=\"submit\" value=\"" + OperationAdd
-      + "\" name=\"Operation\">");
-    out.println(" <input type=\"reset\" value=\"Reset\" name=\"reset\">");
-    out.println("</form>");
-    out.println("");
-    out.println("</body>");
-  }
+//     out.print  ("<form name=\"persist2file\" method=\"post\"");
+//     out.println(" action=\""+Domain+Path+Servlet+"\">");
+//     out.println("");
+//     out.println(" <table>");
+//     out.println("  <tr>");
+//     out.println("   <td>Name:</td>");
+//     out.println("   <td><input type=\"text\" name=\""+Data.NAME.name()
+//       +"\" value=\""+name+"\" size=30 required></td>");
+//     out.println("  </tr>");
+//     out.println("  <tr>");
+//     out.println("   <td>Age:</td>");
+//     out.println("   <td><input type=\"text\"  name=\""+Data.AGE.name()
+//       +"\" oninput=\"this.value=this.value.replace(/[^0-9]/g,'');\" value=\""
+//       +age+"\" size=3 required></td>");
+//     out.println("  </tr>");
+//     out.println(" </table>");
+//     out.println(" <br>");
+//     out.println(" <br>");
+//     out.println(" <input type=\"submit\" value=\"" + OperationAdd
+//       + "\" name=\"Operation\">");
+//     out.println(" <input type=\"reset\" value=\"Reset\" name=\"reset\">");
+//     out.println("</form>");
+//     out.println("");
+//     out.println("</body>");
+//   }
 
   /** *****************************************************
    *  Prints the <BODY> of the HTML page with persisted entries
