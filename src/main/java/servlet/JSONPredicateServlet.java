@@ -163,6 +163,9 @@ public class JSONPredicateServlet extends HttpServlet{
        variables.add(request.getParameter("var" + i));
      }
 
+     response.setContentType("text/html");
+     PrintWriter out = response.getWriter();
+
       EntryManager entryManager = new EntryManager();
       entryManager.setFilePath(RESOURCE_FILE);
       Entries newEntries=entryManager.save(operators, variables);
