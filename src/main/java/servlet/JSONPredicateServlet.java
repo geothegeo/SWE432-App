@@ -163,27 +163,17 @@ public class JSONPredicateServlet extends HttpServlet{
        variables.add(request.getParameter("var" + i));
      }
 
-     response.setContentType("text/html");
-     PrintWriter out = response.getWriter();
+      EntryManager entryManager = new EntryManager();
+      entryManager.setFilePath(RESOURCE_FILE);
+      Entries newEntries=entryManager.save(operators, variables);
 
-     if (error.length() == 0){
-       EntryManager entryManager = new EntryManager();
-       entryManager.setFilePath(RESOURCE_FILE);
-       Entries newEntries=entryManager.save(operators, variables);
-
-       printHead(out);
-       if(newEntries ==  null){
-         error+= "<li>Could not save entry.</li>";
-         printResponseBody(out, "No Entry");
-       }else{
-         printResponseBody(out, entryManager.getAllAsHTMLTable(newEntries));
-       }
-       printTail(out);
-     }else{
-       printHead(out);
-       printResponseBody(out, "There is an error");
-       printTail(out);
-     }
+      printHead(out);
+      if(newEntries ==  null){
+      printResponseBody(out, "No Entry");
+      }else{
+      printResponseBody(out, entryManager.getAllAsHTMLTable(newEntries));
+      }
+      printTail(out);
 
 
   }
@@ -198,7 +188,7 @@ public class JSONPredicateServlet extends HttpServlet{
      response.setContentType("text/html");
      PrintWriter out = response.getWriter();
      printHead(out);
-     printBody(out, "", "", "");
+     private void printResponseBody(out, "doGet");
      printTail(out);
   }
 
