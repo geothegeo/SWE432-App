@@ -124,7 +124,7 @@ public class JSONPredicateServlet extends HttpServlet{
       if(entries == null || entries.entries == null || entries.entries.size() == 0){
         htmlOut.append("No predicates");
       }else{
-        Integer i = 1; 
+        Integer i = 0; 
         Integer v = 1;
         Integer o = 1;
         for(Entry entry: entries.entries){
@@ -231,8 +231,8 @@ public class JSONPredicateServlet extends HttpServlet{
 
      out.println(" <script>");
      out.println(" function cleanUpForm() { var radios = document.getElementByName(\"predicate\"); var d;");
-     out.println(" for (d = 1; d <= radios.length; d++) { if (!radios[d].checked)");
-     out.println(" document.getElementById(\"bundle\"+d).innerHTML = \"\";} return true;");
+     out.println(" for (d = 0; d < radios.length; d++) { if (!radios[d].checked)");
+     out.println(" document.getElementById(\"bundle\"+d).innerHTML = \"\";} return true; }");
      out.println(" </script>");
 
      out.println("</head>");
