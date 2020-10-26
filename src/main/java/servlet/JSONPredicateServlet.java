@@ -43,7 +43,7 @@ public class JSONPredicateServlet extends HttpServlet{
   static String Path    = "/";
   static String Servlet = "jsonServlet";
 
-  static String JSONServlet = "PredicateServlet";
+  static String PredicateServlet = "PredicateServlet";
 
 // Other strings.
   static String Style1 = "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css";
@@ -73,7 +73,7 @@ public class JSONPredicateServlet extends HttpServlet{
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
-    public Entries save(List<String> operators, List<String> variables){
+    public Entries save(List<String> operators, List<String> variables, Integer inputAmnt, String predicate){
       Entries entries = getAll();
       Entry newEntry = new Entry();
       newEntry.operators = operators;
