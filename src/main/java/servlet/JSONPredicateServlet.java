@@ -54,8 +54,6 @@ public class JSONPredicateServlet extends HttpServlet{
   static String BJS2 = "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js";
   static String BJS3 = "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js";
 
-  static Integer divNum = 0;
-
   public class Entry {
     List<String> operators;
     List<String> variables;
@@ -126,7 +124,6 @@ public class JSONPredicateServlet extends HttpServlet{
       if(entries == null || entries.entries == null || entries.entries.size() == 0){
         htmlOut.append("<tr><td>No entries yet.</td></tr>");
       }else{
-        divNum = entries.entries.size();
         for(Entry entry: entries.entries){     
            htmlOut.append("<tr><td>"+entry.inputAmnt+"</td></tr>");
            htmlOut.append("<tr><td>"+entry.predicate+"</td></tr>");     
@@ -143,7 +140,7 @@ public class JSONPredicateServlet extends HttpServlet{
       return htmlOut.toString();
     }
 
-    public String createDropDown(Entries entries) {
+    public String createRadio(Entries entries) {
       StringBuilder htmlOut = new StringBuilder("<p>");
       if(entries == null || entries.entries == null || entries.entries.size() == 0){
         htmlOut.append("No predicates");
@@ -217,7 +214,7 @@ public class JSONPredicateServlet extends HttpServlet{
       if(newEntries ==  null){
       printBody(out, "No Entry", "");
       }else{
-      printBody(out, entryManager.getAllAsHTMLTable(newEntries), entryManager.createDropDown(newEntries));
+      printBody(out, entryManager.getAllAsHTMLTable(newEntries), entryManager.createRadio(newEntries));
       }
       printTail(out);
 
@@ -255,9 +252,9 @@ public class JSONPredicateServlet extends HttpServlet{
      out.println(" <script src=\"" + BJS3 + "\"></script>");
 
      out.println(" <script>");
-     out.println(" function cleanUpForm() { userVal = document.getElementById(\"predN\").value; var d;");
-     out.println(" for (d = 1; d <= " + divNum + "; d++) { if (d != userVal)");
-     out.println(" document.getElementById(\"div\"+d).innerHTML = \"\";} return true;");
+     out.println(" function cleanUpForm() { var radios = document.getElementByName(\"predicate\"); var d;");
+     out.println(" for (d = 1; d <= radios.length; d++) { if (!radios[d].checked)");
+     out.println(" document.getElementById(\"bundle\"+d).innerHTML = \"\";} return true;");
      out.println(" </script>");
 
      out.println("</head>");
