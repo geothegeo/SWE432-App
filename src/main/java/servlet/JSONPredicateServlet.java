@@ -148,14 +148,14 @@ public class JSONPredicateServlet extends HttpServlet{
       if(entries == null || entries.entries == null || entries.entries.size() == 0){
         htmlOut.append("No predicates");
       }else{
-      htmlOut.append("<select name=\"predicate\" class=\"form-group\" id=\"predicate\">");
-      htmlOut.append("<option value=\"\" disabled selected>-- Choose Your Predicate --</option>");
-        Integer i = 0;
+       htmlOut.append("<select name=\"predN\" class=\"form-group\" id=\"predN\">");
+       htmlOut.append("<option value=\"\" disabled selected>-- Choose Your Predicate --</option>");
+        Integer i = 1; 
         Integer v = 1;
         Integer o = 1;
         for(Entry entry: entries.entries){
            htmlOut.append("<div id=\"bundle" + i + "\">");
-           htmlOut.append("<option value=\"" + entry.predicate + "\">" + entry.predicate + "</option>");
+           htmlOut.append("<option value=\"" + i + "\">" + entry.predicate + "</option>");
            
            for(String var: entry.variables){
            	 htmlOut.append("<input type=\"hidden\" id=\"var" + v + "\" name=\"var" + v + "\" value=\"" + var + "\">");
@@ -166,6 +166,7 @@ public class JSONPredicateServlet extends HttpServlet{
              o++;
            }
            htmlOut.append("<input type=\"hidden\" id=\"inputNum\" name=\"inputNum\" value=" + entry.inputAmnt + ">");
+           htmlOut.append("<input type=\"hidden\" id=\"predicate\" name=\"predicate\" value=" + entry.predicate + ">");
            htmlOut.append("</div>");
            i ++;
            v = 1; o = 1;
@@ -257,8 +258,8 @@ public class JSONPredicateServlet extends HttpServlet{
      out.println(" <script src=\"" + BJS3 + "\"></script>");
 
      out.println(" <script>");
-     out.println(" function cleanUpForm() { userVal = document.getElementById(\"inputNum\").value; var d;");
-     out.println(" for (d = 0; d < " + divNum + "; d++) { if (d != userVal)");
+     out.println(" function cleanUpForm() { userVal = document.getElementById(\"predN\").value; var d;");
+     out.println(" for (d = 1; d <= " + divNum + "; d++) { if (d != userVal)");
      out.println(" document.getElementById(\"div\"+d).innerHTML = \"\";} return true;");
      out.println(" </script>");
 
