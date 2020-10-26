@@ -165,8 +165,8 @@ public class JSONPredicateServlet extends HttpServlet{
              htmlOut.append("<input type=\"hidden\" id=\"input" + o + "\" name=\"input" + o + "\" value=\"" + op + "\">");
              o++;
            }
-           htmlOut.append("<input type=\"hidden\" id=\"inputNum\" name=\"inputNum\" value=" + entry.inputAmnt + ">");
-           htmlOut.append("<input type=\"hidden\" id=\"predicate\" name=\"predicate\" value=" + entry.predicate + ">");
+           htmlOut.append("<input type=\"hidden\" id=\"inputNum\" name=\"inputNum\" value=\"" + entry.inputAmnt + "\">");
+           htmlOut.append("<input type=\"hidden\" id=\"predicate\" name=\"predicate\" value=\"" + entry.predicate + "\">");
            htmlOut.append("</div>");
            i ++;
            v = 1; o = 1;
