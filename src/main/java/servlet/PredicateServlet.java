@@ -239,7 +239,8 @@ public void doPost (HttpServletRequest request, HttpServletResponse response)
     out.println(" function updatePredicate(event) { predicateTxt = document.getElementById(\"predicateTxt\");");
     out.println(" predicateTxt.innerHTML = \"\"; predicate = \"\"; for(i = 1; i <= parseInt(variables); i++) {");
     out.println(" if (i != 1) { predicate += document.getElementById(\"input\" + (i-1)).value + \"  \"; }");
-    out.println(" predicate += document.getElementById(\"var\" + i).value + \"  \"; } predicateTxt.innerHTML = predicate; }");
+    out.println(" predicate += document.getElementById(\"var\" + i).value + \"  \"; } predicateTxt.innerHTML = predicate;");
+    out.println(" predicateVal = document.getElementById(\"predicate\"); predicateVal.value = predicate; }");
     
     out.println(" function validateForm() { var j; ");
     out.println(" for (j = 1; j <= parseInt(variables); j++) { var regex = /^\\!?[a-zA-Z]{1,15}[0-9]{0,3}$/;");
