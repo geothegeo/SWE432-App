@@ -298,7 +298,7 @@ public void doPost (HttpServletRequest request, HttpServletResponse response)
     out.println("</form>");
     
     out.println("<p><b>Collaboration Summary: George Tang (gtang2), Morgan Abreu (mabreu3)</b><br />");
-    out.println("Morgan focused on the servlet while George focused on the .</p>");
+    out.println("Morgan focused on the servlet while George focused on the UI.</p>");
     out.println("</div>");
     
     out.println("</body>");
