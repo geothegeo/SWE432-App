@@ -43,12 +43,24 @@ public class JSONPredicateServlet extends HttpServlet{
   static String Path    = "/";
   static String Servlet = "jsonServlet";
 
-  // Button labels
-  static String OperationSave = "Save";
+  static String JSONServlet = "PredicateServlet";
+
+// Other strings.
+  static String Style1 = "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css";
+  static String Style2 = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js";
+  static String Style3 = "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js";
+
+  static String BJS1 = "https://code.jquery.com/jquery-3.3.1.slim.min.js";
+  static String BJS2 = "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js";
+  static String BJS3 = "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js";
+
+  static Integer divNum = 0;
 
   public class Entry {
     List<String> operators;
     List<String> variables;
+    Integer inputAmnt;
+    String predicate;
   }
 
   public class Entries{
@@ -66,6 +78,8 @@ public class JSONPredicateServlet extends HttpServlet{
       Entry newEntry = new Entry();
       newEntry.operators = operators;
       newEntry.variables = variables;
+      newEntry.inputAmnt = inputAmnt;
+      newEntry.predicate = predicate;
       entries.entries.add(newEntry);
       try{
         FileWriter fileWriter = new FileWriter(filePath);
@@ -109,30 +123,55 @@ public class JSONPredicateServlet extends HttpServlet{
 
     public String getAllAsHTMLTable(Entries entries){
       StringBuilder htmlOut = new StringBuilder("<table>");
-      htmlOut.append("<tr><th>Name</th><th>Age</th></tr>");
-      if(entries == null
-          || entries.entries == null || entries.entries.size() == 0){
+      if(entries == null || entries.entries == null || entries.entries.size() == 0){
         htmlOut.append("<tr><td>No entries yet.</td></tr>");
       }else{
-        for(Entry entry: entries.entries){
-           
-             
+        divNum = entries.entries.size();
+        for(Entry entry: entries.entries){          
            for(String var: entry.variables){
-             
            	htmlOut.append("<tr><td>"+var+"</td></tr>");
            }
-             
            for (String op: entry.operators){
              htmlOut.append("<tr><td>"+op+"</td></tr>");
            }
 
-          
         }
       }
       htmlOut.append("</table>");
       return htmlOut.toString();
     }
-    
+
+    public String createDropDown(Entries entries) {
+      StringBuilder htmlOut = new StringBuilder("<p>");
+      if(entries == null || entries.entries == null || entries.entries.size() == 0){
+        htmlOut.append("No predicates");
+      }else{
+      htmlOut.append("<select name=\"predicate\" class=\"form-group\" id=\"predicate\">");
+      htmlOut.append("<option value=\"\" disabled selected>-- Choose Your Predicate --</option>");
+        Integer i = 0;
+        Integer v = 1;
+        Integer o = 1;
+        for(Entry entry: entries.entries){
+           htmlOut.append("<option value=\"" + i + "\">" + entry.predicate + "</option>");
+           htmlOut.append("<div id=\"bunlde" + i + "\"");
+           for(String var: entry.variables){
+           	 htmlOut.append("<input type=\"hidden\" id=\"var" + v + "\" name=\"var" + v + "\" value=" + var + ">");
+             v++;
+           }
+           for (String op: entry.operators){
+             htmlOut.append("<input type=\"hidden\" id=\"input" + o + "\" name=\"input" + o + "\" value=" + op + ">");
+             o++;
+           }
+           htmlOut.append("<input type=\"hidden\" id=\"inputNum\" name=\"inputNum\" value=" + inputAmnt + ">");
+           htmlOut.append("</div>");
+           i ++;
+        }
+        htmlOut.append("</select>");
+        htmlOut.append("<input type=\"submit\" class=\"btn btn-primary\" id=\"submitForm\" value=\"Show Table\"/></div>");
+      }
+      htmlOut.append("</p>");
+      return htmlOut.toString();
+    }
     
   }
 
@@ -149,12 +188,14 @@ public class JSONPredicateServlet extends HttpServlet{
 
      List<String> operators = new ArrayList<String>();
      List<String> variables = new ArrayList<String>();
-    
+     
      Integer inputAmnt = new Integer(0);
      String inputNum = request.getParameter("inputNum");
      if ((inputNum != null) && (inputNum.length() > 0)) {
        inputAmnt = new Integer(inputNum);
      }
+
+     String predicate = request.getParameter("predicate");
     
      for(int i = 1; i < inputAmnt; i++) {
        operators.add(request.getParameter("input" + i));
@@ -168,16 +209,15 @@ public class JSONPredicateServlet extends HttpServlet{
 
       EntryManager entryManager = new EntryManager();
       entryManager.setFilePath(RESOURCE_FILE);
-      Entries newEntries=entryManager.save(operators, variables);
+      Entries newEntries=entryManager.save(operators, variables, inputAmnt, predicate);
 
       printHead(out);
       if(newEntries ==  null){
-      printResponseBody(out, "No Entry");
+      printBody(out, "No Entry", "");
       }else{
-      printResponseBody(out, entryManager.getAllAsHTMLTable(newEntries));
+      printBody(out, entryManager.getAllAsHTMLTable(newEntries), entryManager.createDropDown(newEntries));
       }
       printTail(out);
-
 
   }
 
@@ -191,7 +231,7 @@ public class JSONPredicateServlet extends HttpServlet{
      response.setContentType("text/html");
      PrintWriter out = response.getWriter();
      printHead(out);
-     printResponseBody(out, "doGet");
+     printBody(out, "doGet", "");
      printTail(out);
   }
 
@@ -202,63 +242,30 @@ public class JSONPredicateServlet extends HttpServlet{
      out.println("<html>");
      out.println("");
      out.println("<head>");
-     out.println("<title>JSON File Persistence Example</title>");
-     // Put the focus in the name field
+     out.println("<title>JSON Predicate File</title>");
+     out.println(" <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
+     out.println(" <link rel=\"stylesheet\" href=\"" + Style1 + "\">");
+     out.println(" <link rel=\"stylesheet\" href=\"" + Style2 + "\">");
+     out.println(" <link rel=\"stylesheet\" href=\"" + Style3 + "\">");
+
+     out.println(" <script src=\"" + BJS1 + "\"></script>");
+     out.println(" <script src=\"" + BJS2 + "\"></script>");
+     out.println(" <script src=\"" + BJS3 + "\"></script>");
+
+     out.println(" <script>");
+     out.println(" function cleanUpForm() { userVal = document.getElementById(\"inputNum\").value; var d;");
+     out.println(" for (d = 0; d < " + divNum + "; d++) { if (d != userVal)");
+     out.println(" document.getElementById(\"div\"+d).innerHTML = \"\";} return true;");
+     out.println(" </script>");
+
      out.println("</head>");
      out.println("");
   }
 
   /** *****************************************************
-   *  Prints the <BODY> of the HTML page
-  ********************************************************* */
-//   private void printBody (
-//     PrintWriter out, String name, String age, String error){
-//     out.println("<body onLoad=\"setFocus()\">");
-//     out.println("<p>");
-//     out.println(
-//       "A simple example that demonstrates how to persist JSON data to a file"
-//       );
-//     out.println("</p>");
-
-//     if(error != null && error.length() > 0){
-//       out.println(
-//       "<p style=\"color:red;\">Please correct the following and resubmit.</p>"
-//       );
-//       out.println("<ol>");
-//       out.println(error);
-//       out.println("</ol>");
-//     }
-
-//     out.print  ("<form name=\"persist2file\" method=\"post\"");
-//     out.println(" action=\""+Domain+Path+Servlet+"\">");
-//     out.println("");
-//     out.println(" <table>");
-//     out.println("  <tr>");
-//     out.println("   <td>Name:</td>");
-//     out.println("   <td><input type=\"text\" name=\""+Data.NAME.name()
-//       +"\" value=\""+name+"\" size=30 required></td>");
-//     out.println("  </tr>");
-//     out.println("  <tr>");
-//     out.println("   <td>Age:</td>");
-//     out.println("   <td><input type=\"text\"  name=\""+Data.AGE.name()
-//       +"\" oninput=\"this.value=this.value.replace(/[^0-9]/g,'');\" value=\""
-//       +age+"\" size=3 required></td>");
-//     out.println("  </tr>");
-//     out.println(" </table>");
-//     out.println(" <br>");
-//     out.println(" <br>");
-//     out.println(" <input type=\"submit\" value=\"" + OperationAdd
-//       + "\" name=\"Operation\">");
-//     out.println(" <input type=\"reset\" value=\"Reset\" name=\"reset\">");
-//     out.println("</form>");
-//     out.println("");
-//     out.println("</body>");
-//   }
-
-  /** *****************************************************
    *  Prints the <BODY> of the HTML page with persisted entries
   ********************************************************* */
-  private void printResponseBody (PrintWriter out, String tableString){
+  private void printBody (PrintWriter out, String tableString, String optionString){
     out.println("<body>");
     out.println("<p>");
     out.println("A simple example that shows entries from a JSON file");
@@ -266,6 +273,9 @@ public class JSONPredicateServlet extends HttpServlet{
     out.println("");
     out.println(tableString);
     out.println("");
+    out.println("<form id=\"JSONForm\" class=\"form-inline\" method=\"post\" onsubmit=\"return cleanUpForm()\"");
+    out.println(" action=\"/" + PredicateServlet + "\">");
+    out.println(optionString);
     out.println("</body>");
   }
 

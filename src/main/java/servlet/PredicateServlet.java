@@ -298,11 +298,7 @@ public void doPost (HttpServletRequest request, HttpServletResponse response)
     out.println("</form>");
     
     out.println("<p><b>Collaboration Summary: George Tang (gtang2), Morgan Abreu (mabreu3)</b><br />");
-    out.println("Optional Elements focused: <br />");
-    out.println("1) Validate the input predicate and report invalid strings to the users in a clear way <br />");
-    out.println("2) Allow multiple syntaxes for logical operators (for example, \"&\", \"&&\", \"AND\", \"and\" etc.) <br />");
-    out.println("3) Include an additional logical operator - exclusive or <br />");
-    out.println("Morgan focused on the POST request while George focused on the GET request. Both worked on outputting the table.</p>");
+    out.println("Morgan focused on the servlet while George focused on the .</p>");
     out.println("</div>");
     
     out.println("</body>");
