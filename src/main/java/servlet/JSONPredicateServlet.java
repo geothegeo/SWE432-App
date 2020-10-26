@@ -154,8 +154,9 @@ public class JSONPredicateServlet extends HttpServlet{
         Integer v = 1;
         Integer o = 1;
         for(Entry entry: entries.entries){
+           htmlOut.append("<div id=\"bundle" + i + "\">");
            htmlOut.append("<option value=\"" + entry.predicate + "\">" + entry.predicate + "</option>");
-           htmlOut.append("<div id=\"bunlde" + i + "\">");
+           
            for(String var: entry.variables){
            	 htmlOut.append("<input type=\"hidden\" id=\"var" + v + "\" name=\"var" + v + "\" value=\"" + var + "\">");
              v++;
@@ -167,8 +168,7 @@ public class JSONPredicateServlet extends HttpServlet{
            htmlOut.append("<input type=\"hidden\" id=\"inputNum\" name=\"inputNum\" value=" + entry.inputAmnt + ">");
            htmlOut.append("</div>");
            i ++;
-           htmlOut.append("</option>");
-           v = 0; o = 0;
+           v = 1; o = 1;
         }
         htmlOut.append("</select><br/>");
         htmlOut.append("<input type=\"submit\" class=\"btn btn-primary\" id=\"submitForm\" value=\"Show Table\"/></div>");
