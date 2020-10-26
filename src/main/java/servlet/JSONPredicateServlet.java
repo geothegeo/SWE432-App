@@ -128,9 +128,12 @@ public class JSONPredicateServlet extends HttpServlet{
         Integer v = 1;
         Integer o = 1;
         for(Entry entry: entries.entries){
-           htmlOut.append("<div class=\"form-check\" id=\"bundle" + i + "\">");
+           htmlOut.append("<div class=\"container\">");
+           htmlOut.append("<div class=\"row\">");
+           htmlOut.append("<div class=\"form-check col\">");
            htmlOut.append("<input class=\"form-check-input\" type=\"radio\" name=\"predicate\" id=\"pred" + i + "\" value=\"" + entry.predicate + "\">");
-           htmlOut.append("<label class=\"form-check-label\" for=\"pred" + i + "\">" + entry.predicate + "</label>");
+           htmlOut.append("<label class=\"form-check-label\" for=\"pred" + i + "\">" + entry.predicate + "</label></div><br>");
+           htmlOut.append("<div id=\"bundle" + i + "\">")
            for(String var: entry.variables){
            	 htmlOut.append("<input type=\"hidden\" id=\"var" + v + "\" name=\"var" + v + "\" value=\"" + var + "\">");
              v++;
@@ -140,7 +143,7 @@ public class JSONPredicateServlet extends HttpServlet{
              o++;
            }
            htmlOut.append("<input type=\"hidden\" id=\"inputNum\" name=\"inputNum\" value=\"" + entry.inputAmnt + "\">");
-           htmlOut.append("</div><br>");
+           htmlOut.append("</div></div></div>");
            i ++;
            v = 1; o = 1;
         }
@@ -247,7 +250,6 @@ public class JSONPredicateServlet extends HttpServlet{
     out.println("<p>");
     out.println("Please Select One of Your Following Predicates:");
     out.println("</p>");
-    out.println("<br/>");
     out.println("<form id=\"JSONForm\" class=\"form-inline\" method=\"post\" onsubmit=\"return cleanUpForm()\"");
     out.println(" action=\"" + offlutServlet + "\">");
     out.println(radioString);
