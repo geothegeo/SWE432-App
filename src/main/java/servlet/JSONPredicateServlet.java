@@ -190,7 +190,7 @@ public class JSONPredicateServlet extends HttpServlet{
 
       printHead(out);
       if(newEntries ==  null){
-      printBody(out, "No Entry", "");
+      printBody(out, "No entries");
       }else{
       printBody(out, entryManager.createRadio(newEntries));
       }
@@ -208,7 +208,7 @@ public class JSONPredicateServlet extends HttpServlet{
      response.setContentType("text/html");
      PrintWriter out = response.getWriter();
      printHead(out);
-     printBody(out, "doGet", "");
+     printBody(out, "doGet");
      printTail(out);
   }
 
