@@ -127,10 +127,11 @@ public class JSONPredicateServlet extends HttpServlet{
         Integer i = 0; 
         Integer v = 1;
         Integer o = 1;
+        htmlOut.append("<div class=\"container\">");
         for(Entry entry: entries.entries){
-           htmlOut.append("<div class=\"container\">");
+           
            htmlOut.append("<div class=\"row\">");
-           htmlOut.append("<div class=\"form-check col\">");
+           htmlOut.append("<div class=\"form-check col-3 mr-auto\">");
            htmlOut.append("<input class=\"form-check-input\" type=\"radio\" name=\"predicate\" id=\"pred" + i + "\" value=\"" + entry.predicate + "\">");
            htmlOut.append("<label class=\"form-check-label\" for=\"pred" + i + "\">" + entry.predicate + "</label></div><br>");
            htmlOut.append("<div id=\"bundle" + i + "\">");
@@ -143,11 +144,16 @@ public class JSONPredicateServlet extends HttpServlet{
              o++;
            }
            htmlOut.append("<input type=\"hidden\" id=\"inputNum\" name=\"inputNum\" value=\"" + entry.inputAmnt + "\">");
-           htmlOut.append("</div></div></div>");
+           htmlOut.append("</div></div>");
            i ++;
            v = 1; o = 1;
         }
+        htmlOut.append("</div>");
+        htmlOut.append("<div class=\"row\">");
+        htmlOut.append("<div class=\"form-check col-3 mr-auto\">");
         htmlOut.append("<br/><input type=\"submit\" class=\"btn btn-primary\" id=\"submitForm\" value=\"Show Table\"/></div>");
+        htmlOut.append("</div>");
+        htmlOut.append("</div>");
       }
       htmlOut.append("</p>");
       return htmlOut.toString();
@@ -233,7 +239,7 @@ public class JSONPredicateServlet extends HttpServlet{
      out.println(" <script src=\"" + BJS3 + "\"></script>");
 
      out.println(" <script>");
-     out.println(" function cleanUpForm() { var radios = document.getElementByName(\"predicate\"); var d;");
+     out.println(" function cleanUpForm() { var radios = document.getElementsByName(\"predicate\"); var d;");
      out.println(" for (d = 0; d < radios.length; d++) { if (!radios[d].checked)");
      out.println(" document.getElementById(\"bundle\"+d).innerHTML = \"\";} return true; }");
      out.println(" </script>");
