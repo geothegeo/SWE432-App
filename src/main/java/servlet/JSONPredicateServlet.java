@@ -44,6 +44,7 @@ public class JSONPredicateServlet extends HttpServlet{
   static String Servlet = "jsonServlet";
 
   static String PredicateServlet = "PredicateServlet";
+  static String offlutServlet = "https://cs.gmu.edu:8443/offutt/servlet/formHandler";
 
 // Other strings.
   static String Style1 = "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css";
@@ -118,41 +119,18 @@ public class JSONPredicateServlet extends HttpServlet{
     }
     
     /***********************************************************************/
-
-    public String getAllAsHTMLTable(Entries entries){
-      StringBuilder htmlOut = new StringBuilder("<table>");
-      if(entries == null || entries.entries == null || entries.entries.size() == 0){
-        htmlOut.append("<tr><td>No entries yet.</td></tr>");
-      }else{
-        for(Entry entry: entries.entries){     
-           htmlOut.append("<tr><td>"+entry.inputAmnt+"</td></tr>");
-           htmlOut.append("<tr><td>"+entry.predicate+"</td></tr>");     
-           for(String var: entry.variables){
-           	htmlOut.append("<tr><td>"+var+"</td></tr>");
-           }
-           for (String op: entry.operators){
-             htmlOut.append("<tr><td>"+op+"</td></tr>");
-           }
-
-        }
-      }
-      htmlOut.append("</table>");
-      return htmlOut.toString();
-    }
-
     public String createRadio(Entries entries) {
       StringBuilder htmlOut = new StringBuilder("<p>");
       if(entries == null || entries.entries == null || entries.entries.size() == 0){
         htmlOut.append("No predicates");
       }else{
-        htmlOut.append("Please Select One of Your Following Predicates: <br/>");
         Integer i = 1; 
         Integer v = 1;
         Integer o = 1;
         for(Entry entry: entries.entries){
-           htmlOut.append("<div class=\"radio\" id=\"bundle" + i + "\">");
-           htmlOut.append("<label><input type=\"radio\" name=\"predicate\">" + entry.predicate + "</label>");
-           
+           htmlOut.append("<div class=\"form-check\" id=\"bundle" + i + "\">");
+           htmlOut.append("<input class=\"form-check-input\" type=\"radio\" name=\"predicate\" id=\"pred" + i + "\" value=\"" + entry.predicate + "\">");
+           htmlOut.append("<label class=\"form-check-label\" for=\"pred" + i + "\">" + entry.predicate + "</label>");
            for(String var: entry.variables){
            	 htmlOut.append("<input type=\"hidden\" id=\"var" + v + "\" name=\"var" + v + "\" value=\"" + var + "\">");
              v++;
@@ -162,7 +140,7 @@ public class JSONPredicateServlet extends HttpServlet{
              o++;
            }
            htmlOut.append("<input type=\"hidden\" id=\"inputNum\" name=\"inputNum\" value=\"" + entry.inputAmnt + "\">");
-           htmlOut.append("</div>");
+           htmlOut.append("</div><br>");
            i ++;
            v = 1; o = 1;
         }
@@ -214,7 +192,7 @@ public class JSONPredicateServlet extends HttpServlet{
       if(newEntries ==  null){
       printBody(out, "No Entry", "");
       }else{
-      printBody(out, entryManager.getAllAsHTMLTable(newEntries), entryManager.createRadio(newEntries));
+      printBody(out, entryManager.createRadio(newEntries));
       }
       printTail(out);
 
@@ -264,17 +242,15 @@ public class JSONPredicateServlet extends HttpServlet{
   /** *****************************************************
    *  Prints the <BODY> of the HTML page with persisted entries
   ********************************************************* */
-  private void printBody (PrintWriter out, String tableString, String optionString){
+  private void printBody (PrintWriter out, String radioString){
     out.println("<body>");
     out.println("<p>");
-    out.println("A simple example that shows entries from a JSON file");
+    out.println("Please Select One of Your Following Predicates:");
     out.println("</p>");
-    out.println("");
-    out.println(tableString);
     out.println("<br/>");
     out.println("<form id=\"JSONForm\" class=\"form-inline\" method=\"post\" onsubmit=\"return cleanUpForm()\"");
-    out.println(" action=\"/" + PredicateServlet + "\">");
-    out.println(optionString);
+    out.println(" action=\"" + offlutServlet + "\">");
+    out.println(radioString);
     out.println("</body>");
   }
 
