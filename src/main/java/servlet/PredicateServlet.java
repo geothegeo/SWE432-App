@@ -281,7 +281,7 @@ public void doPost (HttpServletRequest request, HttpServletResponse response)
     out.println("<div class=\"row submitInfo\">");
     out.println("<div class=\"col-lg-3\"><p style=\"text-align: center;\">Your Predicate:</p></div>");
     out.println("<div class=\"col-lg-7\"><p id=\"predicateTxt\"></p><input type=\"hidden\" id=\"predicate\" name=\"predicate\"></div>");
-    out.println("<div class=\"col-lg-2\"><input type=\"submit\" class=\"btn btn-primary\" id=\"savePredicate\" value=\"Save\" formaction=\"/" + offlutServlet + "\">");
+    out.println("<div class=\"col-lg-2\"><input type=\"submit\" class=\"btn btn-primary\" id=\"savePredicate\" value=\"Save\" formaction=\"" + offlutServlet + "\">");
     out.println("<input type=\"submit\" class=\"btn btn-primary\" id=\"submitForm\" value=\"Show Table\"/></div>");
     out.println("</div>");
     
