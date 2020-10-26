@@ -148,14 +148,13 @@ public class JSONPredicateServlet extends HttpServlet{
       if(entries == null || entries.entries == null || entries.entries.size() == 0){
         htmlOut.append("No predicates");
       }else{
-       htmlOut.append("<select name=\"predN\" class=\"form-group\" id=\"predN\">");
-       htmlOut.append("<option value=\"\" disabled selected>-- Choose Your Predicate --</option>");
+        htmlOut.append("Please Select One of Your Following Predicates: <br/>");
         Integer i = 1; 
         Integer v = 1;
         Integer o = 1;
         for(Entry entry: entries.entries){
-           htmlOut.append("<div id=\"bundle" + i + "\">");
-           htmlOut.append("<option value=\"" + i + "\">" + entry.predicate + "</option>");
+           htmlOut.append("<div class=\"radio\" id=\"bundle" + i + "\">");
+           htmlOut.append("<label><input type=\"radio\" name=\"predicate\">" + entry.predicate + "</label>");
            
            for(String var: entry.variables){
            	 htmlOut.append("<input type=\"hidden\" id=\"var" + v + "\" name=\"var" + v + "\" value=\"" + var + "\">");
@@ -166,13 +165,11 @@ public class JSONPredicateServlet extends HttpServlet{
              o++;
            }
            htmlOut.append("<input type=\"hidden\" id=\"inputNum\" name=\"inputNum\" value=\"" + entry.inputAmnt + "\">");
-           htmlOut.append("<input type=\"hidden\" id=\"predicate\" name=\"predicate\" value=\"" + entry.predicate + "\">");
            htmlOut.append("</div>");
            i ++;
            v = 1; o = 1;
         }
-        htmlOut.append("</select><br/>");
-        htmlOut.append("<input type=\"submit\" class=\"btn btn-primary\" id=\"submitForm\" value=\"Show Table\"/></div>");
+        htmlOut.append("<br/><input type=\"submit\" class=\"btn btn-primary\" id=\"submitForm\" value=\"Show Table\"/></div>");
       }
       htmlOut.append("</p>");
       return htmlOut.toString();
