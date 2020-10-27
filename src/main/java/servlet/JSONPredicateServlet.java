@@ -120,18 +120,17 @@ public class JSONPredicateServlet extends HttpServlet{
     
     /***********************************************************************/
     public String createRadio(Entries entries) {
-      StringBuilder htmlOut = new StringBuilder("<p>");
+      StringBuilder htmlOut = new StringBuilder(" ");
       if(entries == null || entries.entries == null || entries.entries.size() == 0){
+        htmlOut.append("<div class=\"col-lg-offset-3 col-lg-7\">");
         htmlOut.append("No predicates");
+        htmlOut.append("</div>");
       }else{
         Integer i = 0; 
         Integer v = 1;
         Integer o = 1;
-        htmlOut.append("<div class=\"container\">");
         for(Entry entry: entries.entries){
-           
-           htmlOut.append("<div class=\"row\">");
-           htmlOut.append("<div class=\"form-check col-10 mr-auto\">");
+           htmlOut.append("<div class=\"form-check col-lg-offset-3 col-lg-7\">");
            htmlOut.append("<input class=\"form-check-input\" type=\"radio\" name=\"predicate\" id=\"pred" + i + "\" value=\"" + entry.predicate + "\">");
            htmlOut.append("<label class=\"form-check-label\" for=\"pred" + i + "\">" + entry.predicate + "</label></div><br>");
            htmlOut.append("<div id=\"bundle" + i + "\">");
@@ -148,18 +147,10 @@ public class JSONPredicateServlet extends HttpServlet{
            i ++;
            v = 1; o = 1;
         }
-        htmlOut.append("</div>");
-        htmlOut.append("<div class=\"row\">");
-        htmlOut.append("<div class=\"form-check col-1 mr-auto\">");
+        htmlOut.append("<div class=\"form-check col-lg-offset-10 col-lg-2 \">");
         htmlOut.append("<br/><input type=\"submit\" class=\"btn btn-primary\" id=\"submitForm\" value=\"Show Table\"/>");
-
-        
-
-        htmlOut.append("</div>");
         htmlOut.append("</div>");
       }
-      
-      htmlOut.append("</p>");
       return htmlOut.toString();
     }
     
@@ -259,12 +250,18 @@ public class JSONPredicateServlet extends HttpServlet{
   ********************************************************* */
   private void printBody (PrintWriter out, String radioString){
     out.println("<body>");
+    out.println("<div class=\"container\">")
+    out.println("<form id=\"JSONForm\" class=\"form-inline\" method=\"post\" onsubmit=\"return cleanUpForm()\"");
+    out.println(" action=\"/" + PredicateServlet + "\">");
+    out.println("<div class=\"row\">");
+    out.println("<div class=\"col-lg-3\">");
     out.println("<p>");
     out.println("Please Select One of Your Following Predicates:");
     out.println("</p>");
-    out.println("<form id=\"JSONForm\" class=\"form-inline\" method=\"post\" onsubmit=\"return cleanUpForm()\"");
-    out.println(" action=\"/" + PredicateServlet + "\">");
+    out.println("</div>");
     out.println(radioString);
+    out.println("</div>");
+    out.println("</div>");
     out.println("</body>");
   }
 
