@@ -269,6 +269,15 @@ public void doPost (HttpServletRequest request, HttpServletResponse response)
     out.println("<h6>&emsp;Note: The operator(s) will be processed in its bitwise form, and you are limited to up to 10 variables.</h6>");
     out.println("<br />");
     
+    
+    out.println("<form action=\"" + JSONServlet + "\" method=\"get\">");
+    out.println("<div class=\"row view p\">");
+    out.println("<div class=\"col-lg-10\"></div>");
+    out.println("<div class=\"col-lg-2\"><input type=\"submit\" class=\"btn btn-primary\" id=\"viewSaved\" value=\"View Saved Predicates\" /></div>");
+    out.println("</div>");
+    out.println("</form>");
+    
+
     out.println("<form id=\"inputForm\" class=\"form-inline\" method=\"post\"");
     out.println(" action=\"/" + Servlet + "\" onsubmit=\"return validateForm()\">");
     out.println("<div class=\"container-fluid\">");
@@ -325,4 +334,3 @@ public void doPost (HttpServletRequest request, HttpServletResponse response)
   } // End PrintTail
   
 }  // End PredicateServlet
-

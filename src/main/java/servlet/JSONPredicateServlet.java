@@ -62,6 +62,13 @@ public class JSONPredicateServlet extends HttpServlet{
     String predicate;
   }
 
+  public class Entry {
+    List<String> operators;
+    List<String> variables;
+    Integer inputAmnt;
+    String predicate;
+  }
+
   public class Entries{
     List<Entry> entries;
   }
@@ -131,7 +138,7 @@ public class JSONPredicateServlet extends HttpServlet{
         for(Entry entry: entries.entries){
            
            htmlOut.append("<div class=\"row\">");
-           htmlOut.append("<div class=\"form-check col-1 mr-auto\">");
+           htmlOut.append("<div class=\"form-check col-10 mr-auto\">");
            htmlOut.append("<input class=\"form-check-input\" type=\"radio\" name=\"predicate\" id=\"pred" + i + "\" value=\"" + entry.predicate + "\">");
            htmlOut.append("<label class=\"form-check-label\" for=\"pred" + i + "\">" + entry.predicate + "</label></div><br>");
            htmlOut.append("<div id=\"bundle" + i + "\">");
@@ -151,10 +158,14 @@ public class JSONPredicateServlet extends HttpServlet{
         htmlOut.append("</div>");
         htmlOut.append("<div class=\"row\">");
         htmlOut.append("<div class=\"form-check col-1 mr-auto\">");
-        htmlOut.append("<br/><input type=\"submit\" class=\"btn btn-primary\" id=\"submitForm\" value=\"Show Table\"/></div>");
+        htmlOut.append("<br/><input type=\"submit\" class=\"btn btn-primary\" id=\"submitForm\" value=\"Show Table\"/>");
+
+        
+
         htmlOut.append("</div>");
         htmlOut.append("</div>");
       }
+      
       htmlOut.append("</p>");
       return htmlOut.toString();
     }
@@ -216,8 +227,10 @@ public class JSONPredicateServlet extends HttpServlet{
          throws ServletException, IOException{
      response.setContentType("text/html");
      PrintWriter out = response.getWriter();
+     EntryManager entryManager = new EntryManager();
+     entryManager.setFilePath(RESOURCE_FILE);
      printHead(out);
-     printBody(out, "doGet");
+     printBody(out, entryManager.createRadio(entryManager.getAll()));
      printTail(out);
   }
 
