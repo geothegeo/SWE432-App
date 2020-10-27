@@ -62,13 +62,6 @@ public class JSONPredicateServlet extends HttpServlet{
     String predicate;
   }
 
-  public class Entry {
-    List<String> operators;
-    List<String> variables;
-    Integer inputAmnt;
-    String predicate;
-  }
-
   public class Entries{
     List<Entry> entries;
   }
