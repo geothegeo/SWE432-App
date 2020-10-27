@@ -250,13 +250,13 @@ public class JSONPredicateServlet extends HttpServlet{
   ********************************************************* */
   private void printBody (PrintWriter out, String radioString){
     out.println("<body>");
-    out.println("<div class=\"container\">")
+    out.println("<div class=\"container\">");
     out.println("<form id=\"JSONForm\" class=\"form-inline\" method=\"post\" onsubmit=\"return cleanUpForm()\"");
     out.println(" action=\"/" + PredicateServlet + "\">");
     out.println("<div class=\"row\">");
     out.println("<div class=\"col-lg-3\">");
     out.println("<p>");
-    out.println("Please Select One of Your Following Predicates:");
+    out.println("Use the back button to go back to the previous page. Please Select One of Your Following Predicates: ");
     out.println("</p>");
     out.println("</div>");
     out.println(radioString);
