@@ -15,9 +15,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 import javax.servlet.annotation.WebServlet;
-@WebServlet( name = "ForwardPredicateServlet", urlPatterns = {"/ForwardPredicateServlet"} )
+@WebServlet( name = "ForwardedServlet", urlPatterns = {"/ForwardedServlet"} )
 
-public class ForwardPredicateServlet extends HttpServlet {
+public class ForwardedServlet extends HttpServlet {
     
     @Override
     public void doPost (HttpServletRequest request, HttpServletResponse response)

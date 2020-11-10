@@ -23,7 +23,7 @@
  
   // Adds servlet mapping annotation
   import javax.servlet.annotation.WebServlet;
-  @WebServlet( name = "PredicateServlet2", urlPatterns = {"/PredicateServlet2"} )
+  @WebServlet( name = "ForwardingServlet", urlPatterns = {"/ForwardingServlet"} )
   
   // PredicateServlet class
   // CONSTRUCTOR: no constructor specified (default)
@@ -40,7 +40,7 @@
   // private void PrintTail (PrintWriter out) --> Prints the HTML bottom
   //***********************************************************************
     
-    public class PredicateServlet2 extends HttpServlet
+    public class ForwardingServlet extends HttpServlet
   {
     
   // Location of servlet.
@@ -67,7 +67,7 @@
     public void doPost (HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException
     {      
-      RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ForwardPredicateServlet");
+      RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ForwardedServlet");
       dispatcher.forward(request, response);
 
 
