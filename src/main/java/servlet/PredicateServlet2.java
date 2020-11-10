@@ -67,7 +67,7 @@
     public void doPost (HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException
     {      
-      RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/PrintTableServlet");
+      RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ForwardPredicateServlet");
       dispatcher.forward(request, response);
 
 
