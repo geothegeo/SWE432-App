@@ -47,7 +47,7 @@
   // Adds the path of your form submit action. Will be different for each person
     static String Domain  = "https://swe432-servlet-app.herokuapp.com/";
     static String Path    = "";
-    static String Servlet = "PredicateServlet";
+    static String Servlet = "ForwardingServlet";
     
   // Other strings.
     static String Style1 = "https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css";
